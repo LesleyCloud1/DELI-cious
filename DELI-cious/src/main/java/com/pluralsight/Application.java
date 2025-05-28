@@ -5,5 +5,7 @@ public class Application {
         //create the ui and show home screen
         UserInterface ui = new UserInterface();
         ui.showHomeScreen();
+        
     }
+
 }

@@ -95,4 +95,8 @@ public class Sandwich {
                     String.format("\nPrice: $%.2f", totalPrice);
 
         }
+    //Returns the total price of this sandwich
+    public double getTotalPrice() {
+        return totalPrice;
     }
+}

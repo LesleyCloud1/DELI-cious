@@ -30,6 +30,7 @@ public class Sandwich {
         else if (size == 8) totalPrice = 7.00;
         else if (size == 12) totalPrice = 8.50;
     }
+
     //Premium meat prices
     public void addMeat(String meat, boolean extra) {
         meats.add(meat);
@@ -43,5 +44,55 @@ public class Sandwich {
         };
         totalPrice += price;
 
+        if (extra) {
+            totalPrice += switch (size) {
+                case 4 -> 0.50;
+                case 8 -> 1.00;
+                case 12 -> 1.50;
+                default -> 0.0;
+            };
+        }
+
     }
-}
+
+    //adds cheese and adjusts price
+    public void addCheese(String cheese, boolean extra) {
+        cheeses.add(cheese);
+        if (extra) cheeses.add("Extra " + cheese);
+
+        double price = switch (size) {
+            case 4 -> 0.75;
+            case 8 -> 1.50;
+            case 12 -> 2.25;
+            default -> 0.0;
+        };
+        totalPrice += price;
+
+            if (extra) {
+                totalPrice += switch (size) {
+                    case 4 -> 0.30;
+                    case 8 -> 0.60;
+                    case 12 -> 0.90;
+                    default -> 0.0;
+                };
+            }
+        }
+        //adds regular topping (no extra cost)
+        public void addTopping (String topping){
+            regularToppings.add(topping);
+        }
+        //adds sauce (no extra cost)
+        public void addSauce (String sauce){
+            sauces.add(sauce);
+        }
+        //returns summary describing the sandwich
+        public String getSummary () {
+            return size + "\" " + breadType + (isToasted ? " (Toasted)" : "") +
+                    "\nMeats: " + meats +
+                    "\nCheeses: " + cheeses +
+                    "\nToppings: " + regularToppings +
+                    "\nSauces: " + sauces +
+                    String.format("\nPrice: $%.2f", totalPrice);
+
+        }
+    }

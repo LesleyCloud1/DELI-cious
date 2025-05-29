@@ -16,5 +16,17 @@ public class ReceiptWriter {
         String timestamp = generateTimestamp();
         String filename = "receipts/" + timestamp + ".txt";
 
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
+        //write the order summary to the file
+        writer.write(order.getOrderSummary());
+    } catch (IOException e) {
+        System.out.println("Error writing receipt: " + e.getMessage());
     }
+}
+//Helper method to generate timestamp like 20250523-151122
+private static String generateTimestamp() {
+    LocalDateTime now = LocalDateTime.now();
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss");
+    return now.format(formatter);
+}
 }

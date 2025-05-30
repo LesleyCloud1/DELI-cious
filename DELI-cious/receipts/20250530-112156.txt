@@ -1,0 +1,11 @@
+Order Summary:
+12" Wheat (Toasted)
+Meats: [Chicken, Extra Chicken]
+Cheeses: [American, Extra American]
+Toppings: [Lettuce, Peppers, Tomatoes, Jalapeños, Cucumbers, Pickles, Guacamole]
+Sauces: [Thousand Islands]
+Price: $16.15
+
+Drinks: [large Iced Tea]
+Chips: [Salt & Vinegar]
+Total Price: $20.65

@@ -1,0 +1,11 @@
+Order Summary:
+4" White (Toasted)
+Meats: [Steak, Extra Steak, Salami, Extra Salami]
+Cheeses: [American, Extra American]
+Toppings: [Lettuce, Peppers, Tomatoes]
+Sauces: [Ranch]
+Price: $9.55
+
+Drinks: [small Cola]
+Chips: [Classic, BBQ]
+Total Price: $14.55

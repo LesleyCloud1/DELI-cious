@@ -1,0 +1,11 @@
+Order Summary:
+4" Wheat (Toasted)
+Meats: [Bacon, Chicken]
+Cheeses: [American, American]
+Toppings: [Lettuce, Guacamole]
+Sauces: [Ranch]
+Price: $9.00
+
+Drinks: [small Cola]
+Chips: [Classic]
+Total Price: $12.50

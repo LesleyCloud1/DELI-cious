@@ -1,0 +1,4 @@
+Order Summary:
+Drinks: [small Cola]
+Chips: [BBQ]
+Total Price: $3.50

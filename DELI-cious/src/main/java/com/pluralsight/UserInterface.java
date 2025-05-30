@@ -72,15 +72,30 @@ public class UserInterface {
                 case "2":
                     System.out.print("Enter drink size (small, medium, large): ");
                     String size = scanner.nextLine();
-                    System.out.print("Enter flavor: ");
-                    String flavor = scanner.nextLine();
-                    order.addDrink(size, flavor); //Add drink
+
+                    System.out.println("Choose a flavor:");
+                    for (int i = 0; i < MenuOptions.DRINK_FLAVORS.length; i++) {
+                        System.out.println((i + 1) + ") " + MenuOptions.DRINK_FLAVORS[i]);
+                    }
+                    int flavorChoice = scanner.nextInt();
+                    scanner.nextLine(); //consume newline
+                    String flavor = MenuOptions.DRINK_FLAVORS[flavorChoice - 1];
+
+                    order.addDrink(size, flavor);
                     break;
+
                 case "3":
-                    System.out.print("Enter chip type: ");
-                    String chip = scanner.nextLine();
-                    order.addChips(chip); //Add chips
+                    System.out.println("Choose a chip type:");
+                    for (int i = 0; i < MenuOptions.CHIP_TYPES.length; i++) {
+                        System.out.println((i + 1) + ") " + MenuOptions.CHIP_TYPES[i]);
+                    }
+                    int chipChoice = scanner.nextInt();
+                    scanner.nextLine(); //consume newline
+                    String chip = MenuOptions.CHIP_TYPES[chipChoice - 1];
+
+                    order.addChips(chip);
                     break;
+
                 case "4":
                     //Display order and ask for confirmation
                     System.out.println("\n" + order.getOrderSummary());

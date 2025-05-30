@@ -1,0 +1,11 @@
+Order Summary:
+4" White (Toasted)
+Meats: [Steak]
+Cheeses: [American, Extra American]
+Toppings: [Lettuce, Peppers, Tomatoes, Jalapeños, Cucumbers, Pickles, Guacamole]
+Sauces: [Ranch]
+Price: $7.55
+
+Drinks: [medium Lemonade]
+Chips: [Classic]
+Total Price: $11.55

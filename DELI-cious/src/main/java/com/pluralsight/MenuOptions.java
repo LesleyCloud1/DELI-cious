@@ -1,7 +1,3 @@
-package com.pluralsight;
-
-package com.pluralsight.util;
-
 package com.pluralsight.util;
 
 /**

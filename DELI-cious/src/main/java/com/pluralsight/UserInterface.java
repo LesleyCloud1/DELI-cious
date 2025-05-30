@@ -1,45 +1,59 @@
 package com.pluralsight;
 
+import com.pluralsight.util.MenuOptions;
 import java.util.Scanner;
-//this class handles all the user interaction through the console
-public class UserInterface {
-    private Scanner scanner;
 
-    //Constructor initalizes scanner
+//This class manages all interactions with the user via the command line interface (CLI)
+public class UserInterface {
+    private Scanner scanner; // Used to read user input from the console
+
+    //Constructor initializes the Scanner when the class is created
     public UserInterface() {
-        scanner = new Scanner(System.in); //Scanner reads user input
+        scanner = new Scanner(System.in);
     }
 
-    //This method displays the main home screen
+    //This method shows the welcome screen and handles the user's initial choice
     public void showHomeScreen() {
         while (true) {
-            //print menu options
+            //Print the main menu options
             System.out.println("Welcome to DELI-cious!");
             System.out.println("1) Start New Order");
             System.out.println("0) Exit");
 
-            //Ask user for input
-            System.out.print("Please choose a option: ");
-            String choice = scanner.nextLine();
+            System.out.print("Please choose an option: ");
+            String choice = scanner.nextLine(); // Read user input
 
-            //Decide what to do based on user input
+            //Handle user choice
             if (choice.equals("1")) {
                 System.out.println("Starting new order...\n");
                 startNewOrder(); //Start the ordering process
             } else if (choice.equals("0")) {
                 System.out.println("Have a blessed day, thanks for visiting DELI-cious!");
-                break;
+                break; //Exit the loop and end the program
             } else {
-                System.out.println("Invalid input, please try again.\n");
+                System.out.println("Invalid input, please try again.\n"); //Handle wrong input
             }
         }
     }
 
-    //Starts a new order
+    //This method lets the user choose the bread type for the sandwich
+    public String promptForBreadType() {
+        System.out.println("Please select a bread type:");
+        for (int i = 0; i < MenuOptions.BREAD_TYPES.length; i++) {
+            System.out.println((i + 1) + ") " + MenuOptions.BREAD_TYPES[i]); //Print each bread option
+        }
+
+        int choice = scanner.nextInt(); //Read the user's number choice
+        scanner.nextLine(); //Clear the newline character
+        return MenuOptions.BREAD_TYPES[choice - 1]; //Return the selected bread
+    }
+
+    //This method manages the entire order process
     private void startNewOrder() {
-        Order order = new Order();
+        Order order = new Order(); //Create a new order
 
         while (true) {
+            //Show the order menu
             System.out.println("\nOrder Menu:");
             System.out.println("1) Add Sandwich");
             System.out.println("2) Add Drink");
@@ -47,92 +61,147 @@ public class UserInterface {
             System.out.println("4) Checkout");
             System.out.println("0) Cancel Order");
 
-            String option = scanner.nextLine();
+            String option = scanner.nextLine(); //Read user choice
 
+            //Handle each menu option
             switch (option) {
                 case "1":
-                    Sandwich sandwich = buildSandwich();
-                    order.addSandwich(sandwich);
+                    Sandwich sandwich = buildSandwich(); //Build a custom sandwich
+                    order.addSandwich(sandwich); //Add to order
                     break;
                 case "2":
                     System.out.print("Enter drink size (small, medium, large): ");
                     String size = scanner.nextLine();
                     System.out.print("Enter flavor: ");
                     String flavor = scanner.nextLine();
-                    order.addDrink(size, flavor);
+                    order.addDrink(size, flavor); //Add drink
                     break;
                 case "3":
                     System.out.print("Enter chip type: ");
                     String chip = scanner.nextLine();
-                    order.addChips(chip);
+                    order.addChips(chip); //Add chips
                     break;
                 case "4":
+                    //Display order and ask for confirmation
                     System.out.println("\n" + order.getOrderSummary());
                     System.out.print("Confirm order? (yes/no): ");
                     if (scanner.nextLine().equalsIgnoreCase("yes")) {
-                        ReceiptWriter.saveReceipt(order);
+                        ReceiptWriter.saveReceipt(order); //Save order to file
                         System.out.println("Order saved!");
                         return;
                     }
                     break;
                 case "0":
                     System.out.println("Order canceled.");
-                    return;
+                    return; //Exit to main screen
                 default:
                     System.out.println("Invalid option.");
             }
         }
     }
 
-    //Builds a sandwich by prompting user step-by-step
+    //This method walks the user through building a sandwich step by step
     private Sandwich buildSandwich() {
-        System.out.print("Bread type (white, wheat, rye, wrap): ");
-        String bread = scanner.nextLine();
-
+        String bread = promptForBreadType(); //Ask for bread type
         System.out.print("Size (4, 8, 12): ");
-        int size = Integer.parseInt(scanner.nextLine());
+        int size = Integer.parseInt(scanner.nextLine()); //Get sandwich size
 
         System.out.print("Toasted? (yes/no): ");
-        boolean toasted = scanner.nextLine().equalsIgnoreCase("yes");
+        boolean toasted = scanner.nextLine().equalsIgnoreCase("yes"); //Toasted?
 
-        Sandwich sandwich = new Sandwich(bread, size, toasted);
+        Sandwich sandwich = new Sandwich(bread, size, toasted); //Create sandwich object
 
-        //Add meats
+        promptForMeats(sandwich);   //Ask for meats
+        promptForCheeses(sandwich); //Ask for cheeses
+        promptForToppings(sandwich); //Ask for regular toppings
+        promptForSauces(sandwich);   //Ask for sauces
+
+        return sandwich; //Return the fully built sandwich
+    }
+
+    //Method to prompt user for meats
+    private void promptForMeats(Sandwich sandwich) {
+        System.out.println("Select meats (type number or 0 to finish):");
         while (true) {
-            System.out.print("Add meat (type 'done' to finish): ");
-            String meat = scanner.nextLine();
-            if (meat.equalsIgnoreCase("done")) break;
-            System.out.print("Extra meat? (yes/no): ");
-            boolean extra = scanner.nextLine().equalsIgnoreCase("yes");
-            sandwich.addMeat(meat, extra);
-        }
+            for (int i = 0; i < MenuOptions.MEATS.length; i++) {
+                System.out.println((i + 1) + ") " + MenuOptions.MEATS[i]);
+            }
+            System.out.println("0) Done");
+            int choice = scanner.nextInt();
+            scanner.nextLine();
 
-        //Add cheeses
+            if (choice == 0) break;
+            if (choice >= 1 && choice <= MenuOptions.MEATS.length) {
+                String meat = MenuOptions.MEATS[choice - 1];
+                System.out.print("Add extra " + meat + "? (yes/no): ");
+                boolean extra = scanner.nextLine().equalsIgnoreCase("yes");
+                sandwich.addMeat(meat, extra);
+            } else {
+                System.out.println("Invalid option, try again.");
+            }
+        }
+    }
+
+    //Method to prompt user for cheeses
+    private void promptForCheeses(Sandwich sandwich) {
+        System.out.println("Select cheeses (type number or 0 to finish):");
         while (true) {
-            System.out.print("Add cheese (type 'done' to finish): ");
-            String cheese = scanner.nextLine();
-            if (cheese.equalsIgnoreCase("done")) break;
-            System.out.print("Extra cheese? (yes/no): ");
-            boolean extra = scanner.nextLine().equalsIgnoreCase("yes");
-            sandwich.addCheese(cheese, extra);
-        }
+            for (int i = 0; i < MenuOptions.CHEESES.length; i++) {
+                System.out.println((i + 1) + ") " + MenuOptions.CHEESES[i]);
+            }
+            System.out.println("0) Done");
+            int choice = scanner.nextInt();
+            scanner.nextLine();
 
-        //Add toppings
+            if (choice == 0) break;
+            if (choice >= 1 && choice <= MenuOptions.CHEESES.length) {
+                String cheese = MenuOptions.CHEESES[choice - 1];
+                System.out.print("Add extra " + cheese + "? (yes/no): ");
+                boolean extra = scanner.nextLine().equalsIgnoreCase("yes");
+                sandwich.addCheese(cheese, extra);
+            } else {
+                System.out.println("Invalid option, try again.");
+            }
+        }
+    }
+
+    //Method to prompt user for regular toppings
+    private void promptForToppings(Sandwich sandwich) {
+        System.out.println("Select toppings (type number or 0 to finish):");
         while (true) {
-            System.out.print("Add regular topping (type 'done' to finish): ");
-            String topping = scanner.nextLine();
-            if (topping.equalsIgnoreCase("done")) break;
-            sandwich.addTopping(topping);
-        }
+            for (int i = 0; i < MenuOptions.REGULAR_TOPPINGS.length; i++) {
+                System.out.println((i + 1) + ") " + MenuOptions.REGULAR_TOPPINGS[i]);
+            }
+            System.out.println("0) Done");
+            int choice = scanner.nextInt();
+            scanner.nextLine();
 
-        //Add sauces
+            if (choice == 0) break;
+            if (choice >= 1 && choice <= MenuOptions.REGULAR_TOPPINGS.length) {
+                sandwich.addTopping(MenuOptions.REGULAR_TOPPINGS[choice - 1]);
+            } else {
+                System.out.println("Invalid option, try again.");
+            }
+        }
+    }
+
+    //Method to prompt user for sauces
+    private void promptForSauces(Sandwich sandwich) {
+        System.out.println("Select sauces (type number or 0 to finish):");
         while (true) {
-            System.out.print("Add sauce (type 'done' to finish): ");
-            String sauce = scanner.nextLine();
-            if (sauce.equalsIgnoreCase("done")) break;
-            sandwich.addSauce(sauce);
-        }
+            for (int i = 0; i < MenuOptions.SAUCES.length; i++) {
+                System.out.println((i + 1) + ") " + MenuOptions.SAUCES[i]);
+            }
+            System.out.println("0) Done");
+            int choice = scanner.nextInt();
+            scanner.nextLine();
 
-        return sandwich;
+            if (choice == 0) break;
+            if (choice >= 1 && choice <= MenuOptions.SAUCES.length) {
+                sandwich.addSauce(MenuOptions.SAUCES[choice - 1]);
+            } else {
+                System.out.println("Invalid option, try again.");
+            }
+        }
     }
 }

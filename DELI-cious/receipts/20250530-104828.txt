@@ -1,0 +1,11 @@
+Order Summary:
+8" White
+Meats: [Salami]
+Cheeses: [Cheddar]
+Toppings: [Lettuce, Peppers, Jalapeños, Pickles, Guacamole]
+Sauces: [Mayo, Mustard, Ranch]
+Price: $10.50
+
+Drinks: [large Iced Tea]
+Chips: [Sour Cream & Onion, Classic]
+Total Price: $16.50

@@ -15,23 +15,26 @@ public class UserInterface {
     //This method shows the welcome screen and handles the user's initial choice
     public void showHomeScreen() {
         while (true) {
-            //Print the main menu options
-            System.out.println("Welcome to DELI-cious!");
-            System.out.println("1) Start New Order");
-            System.out.println("0) Exit");
+            System.out.println();
+            System.out.println("==========================================");
+            System.out.println("          🥪  WELCOME TO DELI-cious  🥪");
+            System.out.println("       Build Your Sandwich, Byte by Byte!");
+            System.out.println("==========================================");
+            System.out.println("What would you like to do?");
+            System.out.println("1) 🛒 Start a New Order");
+            System.out.println("0) ❌ Exit");
+            System.out.print("\nEnter your choice: ");
 
-            System.out.print("Please choose an option: ");
-            String choice = scanner.nextLine(); // Read user input
+            String choice = scanner.nextLine();
 
-            //Handle user choice
             if (choice.equals("1")) {
-                System.out.println("Starting new order...\n");
-                startNewOrder(); //Start the ordering process
+                System.out.println("\nGreat choice! Let’s build something delicious...\n");
+                startNewOrder();
             } else if (choice.equals("0")) {
-                System.out.println("Have a blessed day, thanks for visiting DELI-cious!");
-                break; //Exit the loop and end the program
+                System.out.println("Thank you for visiting DELI-cious! Have a blessed day! 🙏");
+                break;
             } else {
-                System.out.println("Invalid input, please try again.\n"); //Handle wrong input
+                System.out.println("⚠️ Oops! That's not a valid option. Please try again.\n");
             }
         }
     }

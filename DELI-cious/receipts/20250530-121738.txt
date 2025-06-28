@@ -1,0 +1,11 @@
+Order Summary:
+8" White (Toasted)
+Meats: [Steak, Extra Steak]
+Cheeses: [American, Extra American]
+Toppings: [Lettuce, Peppers, Tomatoes, Cucumbers, Guacamole]
+Sauces: [Ranch]
+Price: $12.10
+
+Drinks: [medium Cola]
+Chips: [Sour Cream & Onion]
+Total Price: $16.10

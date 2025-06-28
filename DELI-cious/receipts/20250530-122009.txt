@@ -1,0 +1,11 @@
+Order Summary:
+12" White (Toasted)
+Meats: [Steak, Bacon]
+Cheeses: [American, Extra American]
+Toppings: [Lettuce, Peppers, Tomatoes, Cucumbers, Pickles, Guacamole]
+Sauces: [Ranch, Thousand Islands]
+Price: $17.65
+
+Drinks: [large Lemonade]
+Chips: [Classic]
+Total Price: $22.15

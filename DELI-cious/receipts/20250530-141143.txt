@@ -1,0 +1,11 @@
+Order Summary:
+4" White (Toasted)
+Meats: [Steak]
+Cheeses: [American]
+Toppings: [Lettuce, Tomatoes, Cucumbers]
+Sauces: [Ranch]
+Price: $7.25
+
+Drinks: [small Lemonade]
+Chips: [Classic]
+Total Price: $10.75

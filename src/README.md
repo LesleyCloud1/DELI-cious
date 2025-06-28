@@ -19,9 +19,16 @@ DELI-cious is a command-line Java application that simulates a point-of-sale sys
 - NEW! 🧃 Combo option — sandwich + drink + chips
 - Clean OOP design and user-friendly interface
 
-  ![Starter Menu](images/StarterMenu.png)
-  ![Sandwich Builder](images/Sandwich.png)
-  ![Checkout](images/Checkout.png)
+## 📸 Screenshots
+
+▶ **Starter Menu**  
+![Starter Menu](images/StarterMenu.png)
+
+▶ **Sandwich Builder Flow**  
+![Sandwich Builder](images/Sandwich.png)
+
+▶ **Checkout Example**  
+![Checkout](images/Checkout.png)
 
 ---
 

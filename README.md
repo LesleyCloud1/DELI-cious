@@ -1,46 +1,41 @@
-# 🥪 DELI-cious – Capstone Java CLI Ordering App
+# DELI-cious · Sandwich ordering in Java
 
-**Build Your Sandwich, Byte by Byte!**
+A terminal-based sandwich shop: build a sandwich, add drinks and chips, review the price, and save a receipt. Created as a Java object-oriented programming capstone.
 
-DELI-cious is a command-line Java application that simulates a point-of-sale system for a sandwich shop. Users can create customized sandwich orders, add drinks and chips, and save receipts. This project demonstrates solid object-oriented programming (OOP) practices, designed as part of my Java OOP capstone at Year Up.
+![Sandwich builder](Images/Sandwich.png)
 
----
+## Features
 
-## 🚀 Features
+- 4-, 8-, and 12-inch sandwiches with bread, meat, cheese, toppings, and sauces.
+- Premium ingredients and extra portions change the price.
+- Combo ordering adds a drink and chips at their normal prices.
+- Checkout writes a uniquely named text receipt under `receipts/`.
+- Numeric input retries instead of crashing; unsupported sizes are rejected.
 
-- Fully interactive CLI interface for ordering
-- Custom sandwich builder:
-  - Bread type (white, wheat, rye, wrap)
-  - Size (4", 8", 12")
-  - Toasted option
-  - Add meats, cheeses, regular toppings, sauces (with extras)
-- Add drinks and chips
-- Save order receipts with timestamped filenames
-- NEW! 🧃 Combo option — sandwich + drink + chips
-- Clean OOP design and user-friendly interface
+## Run
 
-  ![Starter Menu](Images/StarterMenu.png)
-  ![Sandwich Builder](Images/Sandwich.png)
-  ![Checkout](Images/Checkout.png)
+Install Java 17 and Maven 3.9+, then:
 
----
+```bash
+git clone https://github.com/LesleyCloud1/DELI-cious.git
+cd DELI-cious
+mvn test
+mvn package
+java -cp target/classes com.pluralsight.Application
+```
 
-## 🧠 OOP Concepts Applied
+Choose **1** to start an order. Add a sandwich, drink, or chips. Choose **4** to review and confirm checkout, or **0** to cancel. Receipts are written relative to the directory where you run the app.
 
-- **Encapsulation** — Order, Sandwich, Topping classes
-- **Composition** — Sandwich contains toppings, sauces, etc.
-- **Separation of Concerns** — `UserInterface` handles interaction, `Order` manages data
-- **Polymorphism / Inheritance** — Signature sandwiches (if implemented)
+## Example price
 
----
+An 8-inch sandwich ($7), turkey ($2), extra turkey ($1), cheddar ($1.50), extra cheddar ($0.60), a medium drink ($2.50), and chips ($1.50) total **$16.10**. Regular toppings and sauces add no charge. This scenario is covered by a test.
 
-## ✨ Special Code Highlight
+## Code map
 
-```java
-System.out.print("Would you like to make it a combo? (yes/no): ");
-if (scanner.nextLine().equalsIgnoreCase("yes")) {
-    displayDrinkOptions(order);
-    displayChipOptions(order);
-}
+`Application` → `UserInterface` → `Sandwich` / `Order` → `ReceiptWriter`
 
----
+`MenuOptions` holds the choices. `Sandwich` owns ingredient pricing. `Order` groups items and totals them. `ReceiptWriter` handles files. Read [the code tour](docs/CODE_TOUR.md) for a guided example.
+
+## Scope and next steps
+
+The app demonstrates composition, encapsulation, lists, loops, validation, and file I/O. There is no payment gateway, database, or signature-sandwich inheritance hierarchy. Prices currently use `double`; a future money model should use decimal values. Empty checkout and end-of-input handling are future improvements.

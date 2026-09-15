@@ -45,8 +45,11 @@ public class UserInterface {
         for (int i = 0; i < MenuOptions.BREAD_TYPES.length; i++) {
             System.out.println((i + 1) + ") " + MenuOptions.BREAD_TYPES[i]);
         }
-        int choice = scanner.nextInt();
-        scanner.nextLine();
+        int choice = readNumber();
+        while (choice < 1 || choice > MenuOptions.BREAD_TYPES.length) {
+            System.out.print("Choose a listed bread number: ");
+            choice = readNumber();
+        }
         return MenuOptions.BREAD_TYPES[choice - 1];
     }
 
@@ -80,9 +83,11 @@ public class UserInterface {
                     System.out.println(order.getOrderSummary());
                     System.out.print("Would you like to confirm this order? (yes/no): ");
                     if (scanner.nextLine().equalsIgnoreCase("yes")) {
-                        ReceiptWriter.saveReceipt(order);
-                        System.out.println("✅ Your order has been saved! Returning to home menu.");
-                        return;
+                        if (ReceiptWriter.saveReceipt(order)) {
+                            System.out.println("✅ Your order has been saved! Returning to home menu.");
+                            return;
+                        }
+                        System.out.println("Order was not saved. Please retry checkout.");
                     }
                     break;
                 case "0":
@@ -99,8 +104,7 @@ public class UserInterface {
         for (int i = 0; i < MenuOptions.DRINK_FLAVORS.length; i++) {
             System.out.println((i + 1) + ") " + MenuOptions.DRINK_FLAVORS[i]);
         }
-        int flavorChoice = scanner.nextInt();
-        scanner.nextLine();
+        int flavorChoice = readNumber();
 
         if (flavorChoice < 1 || flavorChoice > MenuOptions.DRINK_FLAVORS.length) {
             System.out.println("Invalid drink flavor selected.");
@@ -108,7 +112,11 @@ public class UserInterface {
         }
         String flavor = MenuOptions.DRINK_FLAVORS[flavorChoice - 1];
         System.out.print("Enter drink size (small, medium, large): ");
-        String size = scanner.nextLine();
+        String size = scanner.nextLine().trim().toLowerCase(java.util.Locale.ROOT);
+        while (!java.util.Set.of("small", "medium", "large").contains(size)) {
+            System.out.print("Choose small, medium, or large: ");
+            size = scanner.nextLine().trim().toLowerCase(java.util.Locale.ROOT);
+        }
         order.addDrink(size, flavor);
         System.out.println("Drink added to your order.");
     }
@@ -118,8 +126,7 @@ public class UserInterface {
         for (int i = 0; i < MenuOptions.CHIP_TYPES.length; i++) {
             System.out.println((i + 1) + ") " + MenuOptions.CHIP_TYPES[i]);
         }
-        int chipChoice = scanner.nextInt();
-        scanner.nextLine();
+        int chipChoice = readNumber();
 
         if (chipChoice < 1 || chipChoice > MenuOptions.CHIP_TYPES.length) {
             System.out.println("Invalid chip type selected.");
@@ -134,7 +141,11 @@ public class UserInterface {
     private Sandwich buildSandwich(Order order) {
         String bread = promptForBreadType(); // Ask user to choose bread
         System.out.print("Size (4, 8, 12): ");
-        int size = Integer.parseInt(scanner.nextLine()); // Ask for sandwich size
+        int size = readNumber();
+        while (size != 4 && size != 8 && size != 12) {
+            System.out.print("Choose 4, 8, or 12: ");
+            size = readNumber();
+        } // Ask for sandwich size
         System.out.print("Toasted? (yes/no): ");
         boolean toasted = scanner.nextLine().equalsIgnoreCase("yes"); // Ask if they want it toasted
 
@@ -165,8 +176,7 @@ public class UserInterface {
                 System.out.println((i + 1) + ") " + MenuOptions.MEATS[i]);
             }
             System.out.println("0) Done");
-            int choice = scanner.nextInt();
-            scanner.nextLine();
+            int choice = readNumber();
             if (choice == 0) break;
             if (choice >= 1 && choice <= MenuOptions.MEATS.length) {
                 String meat = MenuOptions.MEATS[choice - 1];
@@ -187,8 +197,7 @@ public class UserInterface {
                 System.out.println((i + 1) + ") " + MenuOptions.CHEESES[i]);
             }
             System.out.println("0) Done");
-            int choice = scanner.nextInt();
-            scanner.nextLine();
+            int choice = readNumber();
             if (choice == 0) break;
             if (choice >= 1 && choice <= MenuOptions.CHEESES.length) {
                 String cheese = MenuOptions.CHEESES[choice - 1];
@@ -209,8 +218,7 @@ public class UserInterface {
                 System.out.println((i + 1) + ") " + MenuOptions.REGULAR_TOPPINGS[i]);
             }
             System.out.println("0) Done");
-            int choice = scanner.nextInt();
-            scanner.nextLine();
+            int choice = readNumber();
             if (choice == 0) break;
             if (choice >= 1 && choice <= MenuOptions.REGULAR_TOPPINGS.length) {
                 sandwich.addTopping(MenuOptions.REGULAR_TOPPINGS[choice - 1]);
@@ -228,14 +236,19 @@ public class UserInterface {
                 System.out.println((i + 1) + ") " + MenuOptions.SAUCES[i]);
             }
             System.out.println("0) Done");
-            int choice = scanner.nextInt();
-            scanner.nextLine();
+            int choice = readNumber();
             if (choice == 0) break;
             if (choice >= 1 && choice <= MenuOptions.SAUCES.length) {
                 sandwich.addSauce(MenuOptions.SAUCES[choice - 1]);
             } else {
                 System.out.println("Invalid option, try again.");
             }
+        }
+    }
+    private int readNumber() {
+        while (true) {
+            try { return Integer.parseInt(scanner.nextLine().trim()); }
+            catch (NumberFormatException e) { System.out.print("Enter a whole number: "); }
         }
     }
 }

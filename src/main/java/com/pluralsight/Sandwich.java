@@ -17,6 +17,9 @@ public class Sandwich {
 
     //Constructor creates a sandwich with selected options
     public Sandwich(String breadType, int size, boolean isToasted) {
+        if (size != 4 && size != 8 && size != 12) {
+            throw new IllegalArgumentException("Sandwich size must be 4, 8, or 12.");
+        }
         this.breadType = breadType;
         this.size = size;
         this.isToasted = isToasted;

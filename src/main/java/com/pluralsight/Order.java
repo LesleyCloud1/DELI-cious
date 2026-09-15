@@ -23,6 +23,9 @@ public class Order {
     }
     //add drink by name and update total based on size
     public void addDrink(String size, String flavor) {
+        if (size == null || !java.util.Set.of("small", "medium", "large").contains(size.toLowerCase(java.util.Locale.ROOT))) {
+            throw new IllegalArgumentException("Choose small, medium, or large.");
+        }
         drinks.add(size + " " + flavor);
 
         double price = switch (size.toLowerCase()) {
